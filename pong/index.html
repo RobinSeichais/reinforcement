@@ -1,0 +1,50 @@
+<html>
+<body>
+	
+	<div>
+		<table>
+			<thead>
+				<th>
+					Left side:
+				</th>
+			</thead>
+			<tbody>
+				<tr><td><canvas id="world_l" width="400" height="200" style="border: black solid 1px;"></canvas></td></tr>
+				<tr><td><span id="text_l"></span></td></tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div>
+		<table>
+			<thead>
+				<th>
+					Right side:
+				</th>
+			</thead>
+			<tbody>
+				<tr><td><canvas id="world_r" width="400" height="200" style="border: black solid 1px;"></canvas></td></tr>
+				<tr><td><span id="text_r"></span></td></tr>
+			</tbody>
+		</table>
+	</div>
+
+<script type="text/javascript" src="convnet-min.js"></script>
+<script type="text/javascript" src="world.js"></script>
+<script type="text/javascript" src="ia.js"></script>
+<script type="text/javascript" src="player.js"></script>
+<script type="text/javascript" src="ball.js"></script>
+<script type="text/javascript" src="game.js"></script>
+
+<script type="text/javascript">
+(function () {
+	var game_l = new Game("world_l", 'text_l', 'left');
+	game_l.play();
+
+	var game_r = new Game("world_r", 'text_r', 'right');
+	game_r.play();
+})();
+</script>
+
+</body>
+</html>

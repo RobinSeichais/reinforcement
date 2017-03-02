@@ -29,26 +29,40 @@ class LearningAgent {
 
 		this.trainer = new convnetjs.SGDTrainer(this.net, {learning_rate:0.001, l2_decay:0.0001, momentum:0.0, batch_size:1});
 
+		this.Xs = [];
+		this.ys = [];
+
 		this.X_memory = [];
 		this.y_memory = [];
+		this.n_toss = 11;
+		this.toss_th = 6;
 	}
 
 	decide(input) {
+
+		if (this.Xs.length > 0) {
+			var X = this.Xs.shift();
+			var y = this.ys.shift();
+			this.trainer.train(X, y);
+		}
+
 		this.X_memory.push(input);	
-		var X = new convnetjs.Vol(input);
-		var pred = this.net.forward(X);
+		var vec = new convnetjs.Vol(input);
+		var pred = this.net.forward(vec);
 		var res = this.toss(pred.w[0]);
 		this.y_memory.push(res);
 		return res;
 	}
 
 	toss(prob) {
-		var t1 = Math.random() < prob ? UP : DOWN;
-		var t2 = Math.random() < prob ? UP : DOWN;
-		if (t1 == t2) {
-			return t1;
+		var n = 0;
+		for (var i = 0; i < this.n_toss; i++) {
+			if (Math.random() < prob) n++;
 		}
-		return Math.random() < prob ? UP : DOWN;
+		if (n >= this.toss_th) {
+			return UP;
+		}
+		return DOWN;
 	}
 
 	forget() {
@@ -60,7 +74,8 @@ class LearningAgent {
 		for (var i = 0; i < this.X_memory.length; i++) {
 			var X = new convnetjs.Vol(this.X_memory[i]);
 			var y = reward > 0 ? this.y_memory[i] : Math.abs(this.y_memory[i] - 1);
-			this.trainer.train(X, [y]);
+			this.Xs.push(X);
+			this.ys.push([y]);
 		}
 		this.forget();
 	}
