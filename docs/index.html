@@ -35,6 +35,16 @@
 <script type="text/javascript" src="https://cdn.rawgit.com/RobinSeichais/reinforcement/master/pong/player.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/RobinSeichais/reinforcement/master/pong/ball.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/RobinSeichais/reinforcement/master/pong/game.js"></script>
-<script type="text/javascript" src="https://cdn.rawgit.com/RobinSeichais/reinforcement/master/pong/app.js"></script>
+
+<script type="text/javascript">
+(function () {
+	var game_l = new Game("world_l", 'text_l', 'left');
+	game_l.play();
+
+	var game_r = new Game("world_r", 'text_r', 'right');
+	game_r.play();
+})();
+</script>
+
 </body>
 </html>
