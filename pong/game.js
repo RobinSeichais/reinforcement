@@ -93,7 +93,7 @@ class Game {
 			}
 			
 			that.world.render();
-			that.text_div.innerHTML = that.score + " [max: " + that.max_score + "]"
+			that.text_div.innerHTML = "Age: " + this.n_try + " / " + that.score + " [max: " + that.max_score + "]"
 
 		}, 50);
 	}
