@@ -34,7 +34,8 @@ class Ball {
 		if (this.y == 0 || this.y == world.height - 1) {
 			this.dy = -this.dy;
 		}
-		if (world.at(this.x + this.dx, this.y + this.dy) == SOLID) {
+		if (world.at(this.x + this.dx, this.y + this.dy) == SOLID ||
+			world.at(this.x + this.dx, this.y) == SOLID) {
 			this.dx = -this.dx;
 			res = BOUNCE;
 		}
